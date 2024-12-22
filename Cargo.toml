@@ -1,0 +1,16 @@
+[package]
+name = "history-fuzzy-search"
+version = "0.1.0"
+authors = ["Jay LU <jayjjlu@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+fuzzy_match = "0.2.1"
+clipboard = "0.5.0"
+regex = "1.5.4"
+termion = "4.0.3"
+
+[[bin]]
+name = "fhs"
+path = "src/main.rs"
