@@ -23,11 +23,10 @@ fn main() {
 
     if let Some(command) = selected_command {
         copy_to_clipboard(&command).expect("Failed to copy command to clipboard");
-        println!("Copied to clipboard: {}", command);
+        println!("Command copied: {}", command);
     } else {
         println!("No command selected.");
     }
-    clear_screen();
 }
 
 pub fn read_history() -> io::Result<Vec<String>> {
@@ -70,7 +69,6 @@ pub fn fuzzy_search_and_select(history: &[String]) -> io::Result<Option<String>>
         match c? {
             Key::Char('\n') | Key::Esc => break,
             Key::Char(c) => {
-                write!(screen, "{}", c).unwrap(); // Clear screen
                 search_term.push(c);
                 matches = get_matches(history, &search_term);
                 display_matches(&matches, selected_index, &mut screen, &search_term);
@@ -117,7 +115,6 @@ fn display_matches(
     stdout: &mut impl Write,
     search_term: &str,
 ) {
-    write!(stdout, "\x1B[2J\x1B[1;1H").unwrap(); // Clear screen
     write!(stdout, "{}{}", termion::clear::All, termion::cursor::Goto(1, 1)).unwrap();
     write!(stdout, "Search term: {}\r\n", search_term).unwrap(); // Display search term
     write!(stdout, "---------------------------------------------\r\n").unwrap();
@@ -141,7 +138,3 @@ pub fn copy_to_clipboard(command: &str) -> io::Result<()> {
     Ok(())
 }
 
-fn clear_screen() {
-    print!("\x1B[2J\x1B[1;1H");
-    stdout().flush().unwrap();
-}

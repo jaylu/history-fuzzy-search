@@ -1,6 +1,6 @@
 [package]
 name = "history-fuzzy-search"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Jay LU <jayjjlu@gmail.com>"]
 edition = "2018"
 description = "A tool for fuzzy searching through command history"
