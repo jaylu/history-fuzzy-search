@@ -26,6 +26,7 @@ fn main() {
     } else {
         println!("No command selected.");
     }
+    clear_screen();
 }
 
 pub fn read_history() -> io::Result<Vec<String>> {
@@ -95,7 +96,6 @@ pub fn fuzzy_search_and_select(history: &[String]) -> io::Result<Option<String>>
             _ => {}
         }
     }
-
     Ok(matches.get(selected_index).cloned().cloned())
 }
 
@@ -132,4 +132,9 @@ pub fn copy_to_clipboard(command: &str) -> io::Result<()> {
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
     ctx.set_contents(command.to_owned()).unwrap();
     Ok(())
+}
+
+fn clear_screen() {
+    print!("\x1B[2J\x1B[1;1H");
+    stdout().flush().unwrap();
 }
