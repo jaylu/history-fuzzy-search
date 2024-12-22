@@ -1,6 +1,6 @@
 [package]
 name = "history-fuzzy-search"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Jay LU <jayjjlu@gmail.com>"]
 edition = "2018"
 description = "A tool for fuzzy searching through command history"
@@ -17,5 +17,5 @@ regex = "1.5.4"
 termion = "4.0.3"
 
 [[bin]]
-name = "fhs"
+name = "hfs"
 path = "src/main.rs"

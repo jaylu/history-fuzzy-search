@@ -9,52 +9,50 @@
 - User-friendly interface for selecting commands using keyboard navigation.
 - Copies the selected command to the clipboard for easy pasting.
 
+## Usage
+
+After installing the command line `hfs`, you can invoke it from terminal, and start type for searching command line from history
+
+![Screenshot](./screenshot.png)
+
+- Use the Up/Down arrow keys to navigate through the command history.
+- Press `Enter` to copy the selected command to the clipboard.
+- Press `Esc` to exit the selection interface.
+
 ## Installation
 
-### By Cargo
-To install `hfs` using Cargo, run the following command:
+You can use either way to install `hfs` command in `~/.cargo/bin`. By including `~/.cargo/bin` in `$PATH`, you can run `hfs` directly from terminal.
+
+### Install by Cargo
 
 ```bash
-cargo install hfs
+cargo install history-fuzzy-search
 ```
 
-### By GIT
-
-To install `hfs`, clone the repository and build the project using Cargo:
+### Install by GIT
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/jaylu/history-fuzzy-search.git
 cd history-fuzzy-search
 cargo build --release
+cargo install --path .
 ```
 
 ## Development
 
 ```shell
 ## Build it
+## After building the project, you can run the `hfs` command from your terminal:
+## ./target/release/hfs
 cargo build
 
 ## Run it 
 cargo run
 
-# To install the `fhs` binary in ~/.cargo/bin for local testing, run the following command
+# To install the `hfs` binary in ~/.cargo/bin for local testing, run the following command
 # ~/.cargo/bin expected to be included in $PATH
 cargo install --path .
 ```
-
-## Usage
-
-After building the project, you can run the `hfs` command from your terminal:
-
-```bash
-./target/release/hfs
-```
-
-## Key Bindings
-
-- Use the Up/Down arrow keys to navigate through the command history.
-- Press `Enter` to copy the selected command to the clipboard.
-- Press `Esc` to exit the selection interface.
 
 ## Contributing
 
