@@ -15,9 +15,9 @@ After installing `hfs`, invoke it from the terminal and start typing to search y
 
 ![Screenshot](./screenshot.png)
 
+- Input multiple keyword to do fuzzy search from command line history.
 - Use the Up/Down arrow keys to navigate through the search results.
-- Press `Enter` to copy the selected command to the clipboard.
-- Press `Esc` to exit the interface.
+- Press `Enter` or `Esc` to copy the selected command to the clipboard.
 
 ## Installation
 
