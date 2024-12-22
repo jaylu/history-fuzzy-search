@@ -1,16 +1,17 @@
-use clipboard::{ClipboardContext, ClipboardProvider};
 use std::env;
 use std::fs;
 use std::io::{self, BufRead};
 use std::io::{stdin, stdout, Write};
+use termion::screen::IntoAlternateScreen;
+use termion::raw::IntoRawMode;
 use termion::event::Key;
 use termion::input::TermRead;
-use termion::raw::IntoRawMode;
+use std::process::Command; 
 
 fn main() {
     let history = read_history().expect("Failed to read history");
     let formatted_history: Vec<String> = history
-        .iter()
+        .iter() 
         .enumerate()
         .rev()
         .map(|(i, cmd)| format!("{}     {}", i, cmd))
@@ -57,37 +58,39 @@ pub fn read_history() -> io::Result<Vec<String>> {
 
 pub fn fuzzy_search_and_select(history: &[String]) -> io::Result<Option<String>> {
     let stdin = stdin();
-    let mut stdout = stdout().into_raw_mode().unwrap();
+    
+    let mut screen = stdout().into_raw_mode().unwrap().into_alternate_screen().unwrap();
     let mut selected_index = 0;
     let mut search_term = String::new();
     let mut matches = get_matches(history, &search_term);
 
-    display_matches(&matches, selected_index, &mut stdout, &search_term);
+    display_matches(&matches, selected_index, &mut screen, &search_term);
 
     for c in stdin.keys() {
-        match c.unwrap() {
+        match c? {
             Key::Char('\n') | Key::Esc => break,
             Key::Char(c) => {
+                write!(screen, "{}", c).unwrap(); // Clear screen
                 search_term.push(c);
                 matches = get_matches(history, &search_term);
-                display_matches(&matches, selected_index, &mut stdout, &search_term);
+                display_matches(&matches, selected_index, &mut screen, &search_term);
             }
             Key::Backspace => {
                 search_term.pop();
                 matches = get_matches(history, &search_term);
-                display_matches(&matches, selected_index, &mut stdout, &search_term);
+                display_matches(&matches, selected_index, &mut screen, &search_term);
             }
             Key::Up => {
                 if selected_index > 0 {
                     selected_index -= 1;
                 }
-                display_matches(&matches, selected_index, &mut stdout, &search_term);
+                display_matches(&matches, selected_index, &mut screen, &search_term);
             }
             Key::Down => {
                 if selected_index < matches.len().saturating_sub(1) {
                     selected_index += 1;
                 }
-                display_matches(&matches, selected_index, &mut stdout, &search_term);
+                display_matches(&matches, selected_index, &mut screen, &search_term);
             }
             Key::Ctrl('c') => {
                 println!("\nExiting...");
@@ -115,6 +118,7 @@ fn display_matches(
     search_term: &str,
 ) {
     write!(stdout, "\x1B[2J\x1B[1;1H").unwrap(); // Clear screen
+    write!(stdout, "{}{}", termion::clear::All, termion::cursor::Goto(1, 1)).unwrap();
     write!(stdout, "Search term: {}\r\n", search_term).unwrap(); // Display search term
     write!(stdout, "---------------------------------------------\r\n").unwrap();
     for (i, cmd) in matches.iter().enumerate() {
@@ -129,8 +133,11 @@ fn display_matches(
 }
 
 pub fn copy_to_clipboard(command: &str) -> io::Result<()> {
-    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
-    ctx.set_contents(command.to_owned()).unwrap();
+    Command::new("sh")
+        .arg("-c")
+        .arg(format!("echo {} | pbcopy", command))
+        .status()
+        .expect("Failed to copy command to clipboard");
     Ok(())
 }
 
