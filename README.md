@@ -1,35 +1,35 @@
 # History Fuzzy Search (hfs)
 
-`history-fuzzy-search` is a command line tool designed to enhance your command line experience by allowing you to quickly search through your command history using fuzzy matching. It supports both Bash and Zsh shell environments.
+`history-fuzzy-search` (hfs) is a command line tool that enhances your terminal experience by enabling quick and efficient fuzzy searching through your command history. It supports both Bash and Zsh shells.
 
 ## Features
 
-- Reads command line history from the appropriate files for Bash and Zsh.
-- Fuzzy search functionality to filter command history.
-- User-friendly interface for selecting commands using keyboard navigation.
-- Copies the selected command to the clipboard for easy pasting.
+- Reads command history from Bash and Zsh history files.
+- Provides fuzzy search to filter through command history.
+- User-friendly interface with keyboard navigation.
+- Copies selected commands to the clipboard for easy pasting.
 
 ## Usage
 
-After installing the command line `hfs`, you can invoke it from terminal, and start type for searching command line from history
+After installing `hfs`, invoke it from the terminal and start typing to search your command history.
 
 ![Screenshot](./screenshot.png)
 
-- Use the Up/Down arrow keys to navigate through the command history.
+- Use the Up/Down arrow keys to navigate through the search results.
 - Press `Enter` to copy the selected command to the clipboard.
-- Press `Esc` to exit the selection interface.
+- Press `Esc` to exit the interface.
 
 ## Installation
 
-You can use either way to install `hfs` command in `~/.cargo/bin`. By including `~/.cargo/bin` in `$PATH`, you can run `hfs` directly from terminal.
+Install `hfs` to `~/.cargo/bin` and ensure `~/.cargo/bin` is included in your `$PATH` to run `hfs` directly from the terminal.
 
-### Install by Cargo
+### Install via Cargo
 
 ```bash
 cargo install history-fuzzy-search
 ```
 
-### Install by GIT
+### Install via Git
 
 ```bash
 git clone https://github.com/jaylu/history-fuzzy-search.git
@@ -40,23 +40,22 @@ cargo install --path .
 
 ## Development
 
+To build and run `hfs` locally:
+
 ```shell
-## Build it
-## After building the project, you can run the `hfs` command from your terminal:
-## ./target/release/hfs
+# Build the project
 cargo build
 
-## Run it 
+# Run the project
 cargo run
 
-# To install the `hfs` binary in ~/.cargo/bin for local testing, run the following command
-# ~/.cargo/bin expected to be included in $PATH
+# Install the `hfs` binary in ~/.cargo/bin for local testing
 cargo install --path .
 ```
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+Contributions are welcome! Open an issue or submit a pull request for enhancements or bug fixes.
 
 ## License
 
