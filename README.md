@@ -2,6 +2,8 @@
 
 `history-fuzzy-search` (hfs) is a command line tool that enhances your terminal experience by enabling quick and efficient fuzzy searching through your command history. It supports both Bash and Zsh shells.
 
+This is my experimental project for learning rust with github copilot, it's simple but working pretty well. If you want to find something more powerful and flexible, maybe take a look at [fzf](https://github.com/junegunn/fzf) instead.
+
 ## Features
 
 - Reads command history from Bash and Zsh history files.
@@ -13,7 +15,7 @@
 
 After installing `hfs`, invoke it from the terminal and start typing to search your command history.
 
-![Screenshot](./screenshot.png)
+![demo](./hfs.gif)
 
 - Input multiple keyword to do fuzzy search from command line history.
 - Use the Up/Down arrow keys to navigate through the search results.
